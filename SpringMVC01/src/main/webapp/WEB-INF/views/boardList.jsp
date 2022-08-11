@@ -19,7 +19,24 @@
     <div class="panel-heading">Board</div>
     
     <div class="panel-body">
-    	HI
+    	<table class="table talbe-bordered table-hover">
+    		<tr>
+    			<td>Num</td>
+    			<td>Title</td>
+    			<td>Writer</td>
+    			<td>Date</td>
+    			<td>Count</td>
+    		</tr>
+    		<c:forEach var="vo" items="${list}">
+    			<tr>
+	    			<td>${vo.idx}</td>
+	    			<td>${vo.title}</td>
+	    			<td>${vo.writer}</td>
+	    			<td>${vo.indate}</td>
+	    			<td>${vo.count}</td>
+    			</tr>	
+    		</c:forEach>
+    	</table>
     </div>
     
     <div class="panel-footer">Inflearn_Spring1_JW</div>
