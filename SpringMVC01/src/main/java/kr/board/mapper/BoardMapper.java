@@ -8,6 +8,6 @@ import kr.board.entity.Board;
 //@Mapper
 public interface BoardMapper {
 	
-	public List<Board> getList();	// 게시판 전체 리스트
+	public List<Board> getLists();	// 게시판 전체 리스트
 	
 }
