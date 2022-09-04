@@ -1,9 +1,12 @@
 package kr.board.entity;
 
+import lombok.Data;
+
+// Lombok사용법 : 아래 어노테이션 사용하면 된다.
+// 현재 무슨짓을 해도 lombok이 안되니까 나는 어쩔 수 없이 게터 세터를 사용 하겠다......
+@Data
 public class Board {
 
-	// Lombok사용법 : 아래 어노테이션 사용하면 된다.
-	//@Data
 	private int idx;	// 게시판 번호
 	private String title;	// 게시판 제목
 	private String content;	// 게시판 내용
