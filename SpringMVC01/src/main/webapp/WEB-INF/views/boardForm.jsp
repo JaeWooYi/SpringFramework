@@ -19,26 +19,29 @@
     <div class="panel-heading">Board</div>
     
     <div class="panel-body">
-    	<table class="table talbe-bordered table-hover">
+    
+    <form action="boardInsert.do" method="post">
+    	<table class="table">
     		<tr>
-    			<td>Num</td>
     			<td>Title</td>
-    			<td>Writer</td>
-    			<td>Date</td>
-    			<td>Count</td>
+    			<td><input type="text" name="title" class="form-control"/></td>
     		</tr>
-    		<c:forEach var="vo" items="${list}">
-    			<tr>
-	    			<td>${vo.idx}</td>
-	    			<td>${vo.title}</td>
-	    			<td>${vo.writer}</td>
-	    			<td>${vo.indate}</td>
-	    			<td>${vo.count}</td>
-    			</tr>	
-    		</c:forEach>
+    		<tr>
+    			<td>Content</td>
+    			<td><textarea rows="5" class="form-control" name="content"></textarea></td>
+    		</tr>
+    		<tr>
+    			<td>Writer</td>
+    			<td><input type="text" name="writer" class="form-control"/></td>
+    		</tr>
+    		<tr>
+    			<td colspan="2" align="center">
+    				<button type="submit" class="btn btn-success btn-sm">Registration</button>
+    				<button type="reset" class="btn btn-warning btn-sm">Cancle</button>
+    			</td>
+    		</tr>
     	</table>
-    	
-    	<a href="boardForm.do" class="btn btn-primary btn-sm">Write</a>
+    </form>
     	
     </div>
     

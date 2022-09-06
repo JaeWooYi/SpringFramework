@@ -12,4 +12,6 @@ public interface BoardMapper {
 	
 	public List<Board> getLists();	// 게시판 전체 리스트
 	
+	public void boardInsert(Board vo);
+	
 }
