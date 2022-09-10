@@ -11,4 +11,8 @@
     	values (#{title}, #{content}, #{writer})
     </insert>
     
+    <select id="boardContent" resultType="kr.board.entity.Board">
+    	select * from test.myboard where idx=#{idx}
+    </select>
+    
 </mapper>

@@ -14,4 +14,6 @@ public interface BoardMapper {
 	
 	public void boardInsert(Board vo);
 	
+	public Board boardContent(int idx);
+	
 }

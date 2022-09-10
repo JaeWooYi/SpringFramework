@@ -19,27 +19,31 @@
     <div class="panel-heading">Board</div>
     
     <div class="panel-body">
-    	<table class="table talbe-bordered table-hover">
+    	<table class="table">
     		<tr>
-    			<td>Num</td>
     			<td>Title</td>
-    			<td>Writer</td>
-    			<td>Date</td>
-    			<td>Count</td>
+    			<td>${vo.title}</td>
     		</tr>
-    		<c:forEach var="vo" items="${list}">
-    			<tr>
-	    			<td>${vo.idx}</td>
-	    			<td><a href="boardContent.do?idx=${vo.idx}">${vo.title}</a></td>
-	    			<td>${vo.writer}</td>
-	    			<td>${vo.indate}</td>
-	    			<td>${vo.count}</td>
-    			</tr>	
-    		</c:forEach>
+    		<tr>
+    			<td>Content</td>
+    			<td>${vo.content}</td>
+    		</tr>
+    		<tr>
+    			<td>Writer</td>
+    			<td>${vo.writer}</td>
+    		</tr>
+    		<tr>
+    			<td>Date</td>
+    			<td>${vo.indate}</td>
+    		</tr>
+    		<tr>
+    			<td colspan="2" align="center">
+    				<button class="btn btn-primary btn=sm">Edit</button>
+    				<button class="btn btn-warning btn=sm">Delete</button>
+    				<button class="btn btn-info btn=sm">Go List</button>
+    			</td>
+    		</tr>
     	</table>
-    	
-    	<a href="boardForm.do" class="btn btn-primary btn-sm">Write</a>
-    	
     </div>
     
     <div class="panel-footer">Inflearn_Spring1_JW</div>
