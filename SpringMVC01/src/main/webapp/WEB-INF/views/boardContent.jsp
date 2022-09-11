@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +28,8 @@
     		</tr>
     		<tr>
     			<td>Content</td>
-    			<td>${vo.content}</td>
+    			<%-- <td>${fn:replace(vo.content, "\n", "<br/>")}</td> --%>
+    			<td>${fn:replace(vo.content, newLineChar, "<br/>")}</td>
     		</tr>
     		<tr>
     			<td>Writer</td>
@@ -34,13 +37,15 @@
     		</tr>
     		<tr>
     			<td>Date</td>
-    			<td>${vo.indate}</td>
+    			<td>${fn:split(vo.indate, " ")[0]}</td>
     		</tr>
     		<tr>
     			<td colspan="2" align="center">
-    				<button class="btn btn-primary btn=sm">Edit</button>
-    				<button class="btn btn-warning btn=sm">Delete</button>
-    				<button class="btn btn-info btn=sm">Go List</button>
+    				<a href = "" class="btn btn-primary btn=sm">Edit</a>
+    				<%-- <a href = "boardDelete.do?idx=${vo.idx}" class="btn btn-warning btn=sm">Delete</a> --%>
+    				<a href = "boardDelete.do/${vo.idx}" class="btn btn-warning btn=sm">Delete</a>
+    				<!-- boardDelete.do/${vo.idx} 로 써서 숫자만 넘길 수 도 있다.-->
+    				<a href = "boardList.do" class="btn btn-info btn=sm">Go List</a>
     			</td>
     		</tr>
     	</table>

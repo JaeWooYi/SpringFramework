@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ public class BoardController {
 	@Autowired
 	private BoardMapper mapper;
 	
+	// 보드 리스트 조회!!
 	// HandlerMapping
 	@RequestMapping("/boardList.do")
 	public String boardList(Model model) {
@@ -33,11 +35,13 @@ public class BoardController {
 		return "boardList";	// WEB_INF/views/boardList.jsp
 	}
 	
+	// 입력페이지 가기!!
 	@GetMapping("/boardForm.do")		// RequestMappgin으로 해도 된다.
 	public String boardForm() {	
 		return "boardForm";
 	}
 	
+	// 입력하기!
 	@PostMapping("/boardInsert.do")		// post방식으로 오니까 PostMapping로 하자.
 	public String boardInsert(Board vo) {
 		
@@ -46,6 +50,7 @@ public class BoardController {
 		return "redirect:/boardList.do";
 	}
 	
+	// 상세보기!!
 	//@GetMapping("/boardContent.do")
 	@RequestMapping("/boardContent.do")
 	public String boardContent(@RequestParam("idx") int idx, Model model) {
@@ -54,6 +59,16 @@ public class BoardController {
 		model.addAttribute("vo", vo);
 		
 		return "boardContent";
+	}
+	
+	// 삭제하기!!
+	//@GetMapping("/boardDelete.do/{idx}")
+	@RequestMapping("/boardDelete.do/{idx}")
+	public String boardDelete(@PathVariable("idx") int idx) {
+		
+		mapper.boardDelete(idx);
+		
+		return "redirect:/boardList.do";
 	}
 	
 }
