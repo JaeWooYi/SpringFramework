@@ -26,7 +26,7 @@ public class BoardController {
 	// 보드 리스트 조회!!
 	// HandlerMapping
 	@RequestMapping("/boardList.do")
-	public String boardList(Model model) {
+	public String boardList(Model model){
 		// retrun타입이 view페이지의 경로니까 String
 		
 		List<Board> list = mapper.getLists();
@@ -71,5 +71,24 @@ public class BoardController {
 		return "redirect:/boardList.do";
 	}
 	
+	// 업데이트 페이지!!
+	//@RequestMapping("/boardUpdateForm.do/idx")
+	@GetMapping("/boardUpdateForm.do/{idx}")
+	public String boardUpdateForm(@PathVariable("idx") int idx, Model model) {
+		
+		Board vo = mapper.boardContent(idx);
+		model.addAttribute("vo", vo);
+		
+		return "boardUpdate";
+	}
+	
+	//@PostMapping("/boardUpdate.do")
+	@RequestMapping("/boardUpdate.do")
+	public String boardUpdate(Board vo) {
+		
+		mapper.boardUpdate(vo);
+		
+		return "redirect:/boardList.do";
+	}
 }
 

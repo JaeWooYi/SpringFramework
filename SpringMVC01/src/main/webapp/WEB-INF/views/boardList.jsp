@@ -14,7 +14,7 @@
 <body>
  
 <div class="container">
-  <h2>Panel Heading</h2>
+  <h2>Good Spring</h2>
   <div class="panel panel-default">
     <div class="panel-heading">Board</div>
     

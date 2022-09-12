@@ -41,7 +41,7 @@
     		</tr>
     		<tr>
     			<td colspan="2" align="center">
-    				<a href = "" class="btn btn-primary btn=sm">Edit</a>
+    				<a href = "boardUpdateForm.do/${vo.idx}" class="btn btn-primary btn=sm">Edit</a>
     				<%-- <a href = "boardDelete.do?idx=${vo.idx}" class="btn btn-warning btn=sm">Delete</a> --%>
     				<a href = "boardDelete.do/${vo.idx}" class="btn btn-warning btn=sm">Delete</a>
     				<!-- boardDelete.do/${vo.idx} 로 써서 숫자만 넘길 수 도 있다.-->
