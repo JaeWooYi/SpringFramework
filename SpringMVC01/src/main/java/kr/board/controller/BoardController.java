@@ -53,9 +53,11 @@ public class BoardController {
 	// 상세보기!!
 	//@GetMapping("/boardContent.do")
 	@RequestMapping("/boardContent.do")
-	public String boardContent(@RequestParam("idx") int idx, Model model) {
+	public String boardContent(@RequestParam("idx") int idx, Model model) {	// @RequestParam --> 이건 생략 해도 되는거야
 		
 		Board vo = mapper.boardContent(idx);
+		// 조회수 증가
+		mapper.boardCount(idx);
 		model.addAttribute("vo", vo);
 		
 		return "boardContent";

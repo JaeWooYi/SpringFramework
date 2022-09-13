@@ -3,6 +3,7 @@ package kr.board.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import kr.board.entity.Board;
 
@@ -19,5 +20,9 @@ public interface BoardMapper {
 	public void boardDelete(int idx);
 
 	public void boardUpdate(Board vo);
+	
+	// 이런식으로 여기다가 쿼리 써도 되는데 이건 그냥 예시용이야
+	@Update("update test.myboard set count=count+1 where idx=#{idx}")
+	public void boardCount(int idx);
 	
 }
