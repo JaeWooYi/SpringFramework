@@ -40,7 +40,7 @@
     					<button type="submit" class="btn btn-primary btn-sm">Update</button>
     					<button type="reset" class="btn btn-warning btn-sm">Cancle</button>
     					
-    					<button type="button" class="btn btn-info btn-sm" onclick="location.href='boardList.do'">List</button>
+    					<button type="button" class="btn btn-info btn-sm" onclick="location.href='../boardList.do'">List</button>
     					<!-- <a href = "boardList.do" class="btn btn-info btn=sm">Go List</a> -->
     					
     				</td>
