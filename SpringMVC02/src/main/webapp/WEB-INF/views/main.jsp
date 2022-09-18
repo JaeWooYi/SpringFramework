@@ -27,8 +27,27 @@
 	  });
   }
   
-  function makeView(data){
-	  alert(data);
+  function makeView(data){	/* data -> [{},...{}] 형식으로 */
+	  /* alert(data); */	/* 데이터 확인 */
+	  var listHtml = "<table class = 'table table-bordered'>";
+	  listHtml += "<tr>";
+	  listHtml += "<td>Num</td>";
+	  listHtml += "<td>Title</td>";
+	  listHtml += "<td>Writer</td>";
+	  listHtml += "<td>Date</td>";
+	  listHtml += "<td>Cnt</td>";
+	  listHtml += "</tr>";
+	  $.each(data, function(index, obj){
+		  listHtml += "<tr>";
+		  listHtml += "<td>"+ obj.idx +"</td>";
+		  listHtml += "<td>"+ obj.title +"</td>";
+		  listHtml += "<td>"+ obj.writer +"</td>";
+		  listHtml += "<td>"+ obj.indate +"</td>";
+		  listHtml += "<td>"+ obj.count +"</td>";
+		  listHtml += "</tr>";
+	  });
+	  listHtml += "</talbe>";
+	  $("#view").html(listHtml);
   }
   </script>
   
@@ -40,7 +59,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Board</div>
     
-    <div class="panel-body">
+    <div class="panel-body" id="view">
     	HI
     </div>
     
