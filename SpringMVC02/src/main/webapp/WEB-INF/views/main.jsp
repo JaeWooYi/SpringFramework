@@ -46,8 +46,25 @@
 		  listHtml += "<td>"+ obj.count +"</td>";
 		  listHtml += "</tr>";
 	  });
+	  
+	  listHtml += "<tr>";
+	  listHtml += "<td colspan='5'>";
+	  listHtml += "<button class='btn btn-primary btn-sm' onclick='goForm()'>Board Write!</button>";
+	  listHtml += "</td>";
+	  listHtml += "</tr>";
+	  
 	  listHtml += "</talbe>";
 	  $("#view").html(listHtml);
+  }
+  
+  function goForm(){
+	  $("#view").css("display", "none");	// 감추기
+	  $("#wform").css("display", "block");	// 보이기
+  }
+  
+  function goList(){
+	  $("#view").css("display", "block");
+	  $("#wform").css("display", "none");
   }
   </script>
   
@@ -61,6 +78,32 @@
     
     <div class="panel-body" id="view">
     	HI
+    </div>
+    
+    <div class="panel-body" id="wform" style="display:none" >
+    	<form action="boardInsert.do" method="post">
+	    	<table class="table">
+	    		<tr>
+	    			<td>Title</td>
+	    			<td><input type="text" name="title" class="form-control"/></td>
+	    		</tr>
+	    		<tr>
+	    			<td>Content</td>
+	    			<td><textarea rows="5" class="form-control" name="content"></textarea></td>
+	    		</tr>
+	    		<tr>
+	    			<td>Writer</td>
+	    			<td><input type="text" name="writer" class="form-control"/></td>
+	    		</tr>
+	    		<tr>
+	    			<td colspan="2" align="center">
+	    				<button type="submit" class="btn btn-success btn-sm">Registration</button>
+	    				<button type="reset" class="btn btn-warning btn-sm">Cancle</button>
+	    				<button type="button" class="btn btn-info btn-sm" onclick="goList()" >Go List</button>
+	    			</td>
+	    		</tr>
+	    	</table>
+	    </form>
     </div>
     
     <div class="panel-footer">Inflearn_Spring1_JW</div>
