@@ -55,6 +55,9 @@
 	  
 	  listHtml += "</talbe>";
 	  $("#view").html(listHtml);
+	  
+	  $("#view").css("display", "block");
+	  $("#wform").css("display", "none");
   }
   
   function goForm(){
@@ -65,6 +68,30 @@
   function goList(){
 	  $("#view").css("display", "block");
 	  $("#wform").css("display", "none");
+  }
+  
+  function goInsert(){
+	  /* var title = $("#title").val();
+	  var content = $("#content").val();
+	  var writer = $("#writer").val(); */	/* 개별로 한개씩 가지고와도 되지만!! 밑에 더 편리한 방범(한번에 가져오기) */
+	  
+	  var fData = $("#frm").serialize();	/* form안에 모든 파라메터를 직렬화 할수있어 serialize함수를 통해서 */
+	  /* alert(fData); */
+	  
+	  $.ajax({
+		  url : "boardInsert.do",
+		  type : "post", 
+		  data : fData,
+		  success : loadList,
+		  error : function(){
+			  alert("error");
+			  }
+	  });
+	 
+	  /* fData = fData.val(""); */	/* 이렇게하면 안되네.... */
+	  $("#title").val("");
+	  $("#content").val("");
+	  $("#writer").val("");
   }
   </script>
   
@@ -81,23 +108,23 @@
     </div>
     
     <div class="panel-body" id="wform" style="display:none" >
-    	<form action="boardInsert.do" method="post">
+    	<form id="frm">
 	    	<table class="table">
 	    		<tr>
 	    			<td>Title</td>
-	    			<td><input type="text" name="title" class="form-control"/></td>
+	    			<td><input type="text" id="title" name="title" class="form-control"/></td>
 	    		</tr>
 	    		<tr>
 	    			<td>Content</td>
-	    			<td><textarea rows="5" class="form-control" name="content"></textarea></td>
+	    			<td><textarea rows="5" id="content" class="form-control" name="content"></textarea></td>
 	    		</tr>
 	    		<tr>
 	    			<td>Writer</td>
-	    			<td><input type="text" name="writer" class="form-control"/></td>
+	    			<td><input type="text" id="writer" name="writer" class="form-control"/></td>
 	    		</tr>
 	    		<tr>
 	    			<td colspan="2" align="center">
-	    				<button type="submit" class="btn btn-success btn-sm">Registration</button>
+	    				<button type="button" class="btn btn-success btn-sm" onclick="goInsert()">Registration</button>
 	    				<button type="reset" class="btn btn-warning btn-sm">Cancle</button>
 	    				<button type="button" class="btn btn-info btn-sm" onclick="goList()" >Go List</button>
 	    			</td>

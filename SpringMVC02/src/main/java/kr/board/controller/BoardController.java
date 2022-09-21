@@ -27,5 +27,11 @@ public class BoardController {
 		List<Board> list = boardMapper.getLists();
 		return list;  // 객체를 리턴??? --> json 데이터 형식으로 변환을 해서 리턴하겠다.  --> api필요 : jakson-databind
 	}
+	
+	@RequestMapping("/boardInsert.do")
+	public @ResponseBody void boardInsert(Board vo) {
+		boardMapper.boardInsert(vo);		// 등록 성공!
+	}
+	
 }
 
