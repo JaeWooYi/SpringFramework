@@ -40,10 +40,17 @@
 	  $.each(data, function(index, obj){
 		  listHtml += "<tr>";
 		  listHtml += "<td>"+ obj.idx +"</td>";
-		  listHtml += "<td>"+ obj.title +"</td>";
+		  listHtml += "<td><a href='javascript:goContent("+obj.idx+")'>"+ obj.title +"</a></td>";
 		  listHtml += "<td>"+ obj.writer +"</td>";
 		  listHtml += "<td>"+ obj.indate +"</td>";
 		  listHtml += "<td>"+ obj.count +"</td>";
+		  listHtml += "</tr>";
+		  
+		  listHtml += "<tr id='c"+ obj.idx +"' style='display:none'>";
+		  listHtml += "<td>Content!</td>";
+		  listHtml += "<td colspan='4'>Content!";
+		  listHtml += "<textarea rows='7' class ='form-control'>"+ obj.content +"</textarea>";
+		  listHtml += "</td>";
 		  listHtml += "</tr>";
 	  });
 	  
@@ -89,9 +96,15 @@
 	  });
 	 
 	  /* fData = fData.val(""); */	/* 이렇게하면 안되네.... */
-	  $("#title").val("");
+	  /* $("#title").val("");
 	  $("#content").val("");
-	  $("#writer").val("");
+	  $("#writer").val(""); */
+	  /* 취소버튼을 누르면 클리어가 되자나 그거로 해도 되? */
+	  $("#fclear").trigger("click");
+  }
+  
+  function goContent(idx){
+	  $("#c"+idx).css("display", "table-row")	// 보이게!!
   }
   </script>
   
@@ -125,7 +138,7 @@
 	    		<tr>
 	    			<td colspan="2" align="center">
 	    				<button type="button" class="btn btn-success btn-sm" onclick="goInsert()">Registration</button>
-	    				<button type="reset" class="btn btn-warning btn-sm">Cancle</button>
+	    				<button type="reset" class="btn btn-warning btn-sm" id="fclear">Cancle</button>
 	    				<button type="button" class="btn btn-info btn-sm" onclick="goList()" >Go List</button>
 	    			</td>
 	    		</tr>
