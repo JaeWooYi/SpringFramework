@@ -40,7 +40,7 @@
 	  $.each(data, function(index, obj){
 		  listHtml += "<tr>";
 		  listHtml += "<td>"+ obj.idx +"</td>";
-		  listHtml += "<td><a href='javascript:goContent("+obj.idx+")'>"+ obj.title +"</a></td>";
+		  listHtml += "<td id='t"+obj.idx+"'><a href='javascript:goContent("+obj.idx+")'>"+ obj.title +"</a></td>";
 		  listHtml += "<td>"+ obj.writer +"</td>";
 		  listHtml += "<td>"+ obj.indate +"</td>";
 		  listHtml += "<td>"+ obj.count +"</td>";
@@ -49,7 +49,10 @@
 		  listHtml += "<tr id='c"+ obj.idx +"' style='display:none'>";
 		  listHtml += "<td>Content!</td>";
 		  listHtml += "<td colspan='4'>Content!";
-		  listHtml += "<textarea rows='7' class ='form-control'>"+ obj.content +"</textarea>";
+		  listHtml += "<textarea id='ta"+obj.idx+"' readonly='readonly' rows='7' class ='form-control'>"+ obj.content +"</textarea>";
+		  listHtml += "<br/>";
+		  listHtml += "<span id='up"+obj.idx+"'><button class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>Modify</button></span>&nbsp";
+		  listHtml += "<button class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>Delete</button>";
 		  listHtml += "</td>";
 		  listHtml += "</tr>";
 	  });
@@ -104,8 +107,37 @@
   }
   
   function goContent(idx){
-	  $("#c"+idx).css("display", "table-row")	// 보이게!!
+	  if($("#c"+idx).css("display")=="none"){
+	  	$("#c"+idx).css("display", "table-row")	// 보이게!!
+	  	$("#ta"+idx).attr("readonly", true);
+	  }else{
+		$("#c"+idx).css("display", "none")	// 안보이게!!
+	  }
   }
+  
+  function goDelete(idx){
+	  $.ajax({
+		  url : "boardDelete.do",
+		  type : "get",
+		  data : {"idx" : idx},
+		  success : loadList,
+		  error : function(){
+			  alert("error!!");
+		  }
+	  });
+  }
+  
+  function goUpdateForm(idx){
+	  $("#ta"+idx).attr("readonly", false);
+	  
+	  var title = $("#t"+idx).text();
+	  var newInput = "<input type='text' class='form-control' value='"+title+"' />"
+	  $("#t"+idx).html(newInput);
+	  
+	  var newButton = "<button class='btn btn-primary btn-sm'>Update!</button>"
+	  $("#up"+idx).html(newButton);
+  }
+  
   </script>
   
 </head>

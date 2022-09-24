@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.board.entity.Board;
@@ -31,6 +32,12 @@ public class BoardController {
 	@RequestMapping("/boardInsert.do")
 	public @ResponseBody void boardInsert(Board vo) {
 		boardMapper.boardInsert(vo);		// 등록 성공!
+	}
+	
+	@RequestMapping("/boardDelete.do")
+//	public @ResponseBody void boardDelete(int idx) {
+	public @ResponseBody void boardDelete(@RequestParam("idx") int idx) {	// @RequestParam("idx") 붙이나 안붙이나 실행에 영향 없네 히히
+		boardMapper.boardDelete(idx);
 	}
 	
 }
