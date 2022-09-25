@@ -40,5 +40,23 @@ public class BoardController {
 		boardMapper.boardDelete(idx);
 	}
 	
+	@RequestMapping("/boardUpdate.do")
+	public @ResponseBody void boardUpdate(Board vo) {
+		boardMapper.boardUpdate(vo);
+	}
+	
+	@RequestMapping("/boardContent.do")
+	public @ResponseBody Board boardContent(int idx) {
+		Board vo = boardMapper.boardContent(idx);
+		return vo;
+	}
+	
+	@RequestMapping("/boardCount.do")
+	public @ResponseBody Board boardCount(int idx) {	// @ResponseBody좀 제발 까먹지 말자
+		boardMapper.boardCount(idx);
+		Board vo = boardMapper.boardContent(idx);
+		return vo;
+	}
+	
 }
 
