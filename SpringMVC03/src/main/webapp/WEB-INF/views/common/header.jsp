@@ -16,21 +16,35 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="${contextPath}/">Home</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Page 1-1</a></li>
-            <li><a href="#">Page 1-2</a></li>
-            <li><a href="#">Page 1-3</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Page 2</a></li>
         <li><a href="boardMain.do">Go Board</a></li>
+        <li><a href="#">Page 2</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+      
+      <c:if test="${empty mvo}">	<!-- 로그인을 하지 않은 경우 -->
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Do Connect<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Sign In</a></li>
+	            <li><a href="${contextPath}/memJoin.do">Sign Up</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+      </c:if>
+      
+      <c:if test="${!empty mvo}">	<!-- 로그인을 한 경우 -->
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Management Me<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">My Page</a></li>
+	            <li><a href="#">My Profile Picture</a></li>
+	            <li><a href="#">Log Out</a></li>
+	          </ul>
+	        </li>
+	      </ul> 
+      </c:if>
+      
     </div>
   </div>
 </nav>
