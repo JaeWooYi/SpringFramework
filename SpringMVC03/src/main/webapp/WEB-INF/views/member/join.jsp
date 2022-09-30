@@ -14,14 +14,62 @@
 </head>
 <body>
  
-<jsp:include page="../common/header.jsp" />
 <div class="container">
+<jsp:include page="../common/header.jsp" />
   <h2>Spring MVC03</h2>
   <div class="panel panel-default">
 	<div class="panel-heading">Sign Up</div>
 	
 	<div class="panel-body">
-		회원가입 만들기 폼
+		<form method="post" action="${contextPath}/memberRegister.do">
+			<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
+				<tr>
+					<td style="width:110px; vertical-align: middle;">ID</td>
+					<td><input id='memID' name='memID' class="form-control" type='text' placeholder='Input desired ID!' maxlength='20' /></td>
+					<td style="width:110px; vertical-align: middle;"><button onclick="registerCheck()" class="btn btn-primary btn-sm">Overlap Check</button></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Password</td>
+					<td colspan=2><input onkeyup="passwordCheck()" id='memPASSWORD1' name='memPASSWORD1' class="form-control" type='password' placeholder='Input desired password!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Password Check</td>
+					<td colspan=2><input onkeyup="passwordCheck()" id='memPASSWORD2' name='memPASSWORD2' class="form-control" type='password' placeholder='Confirm Your Password!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Name</td>
+					<td colspan=2><input id='memNAME' name='memNAME' class="form-control" type='text' placeholder='Input your name!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Age</td>
+					<td colspan=2><input id='memAGE' name='memAGE' class="form-control" type='text' placeholder='Input your Age!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Gender</td>
+					<td colspan=2>
+						<div class='form-group' style='text-align: center; margin: 0 auto;'>
+							<div class='btn-group' data-toggle='buttons'>
+								<label class='btn btn-primary active'>
+									<input type='radio' id='memGENDER' name='memGENDER' autocomplete='off' value='male' checked/>Male
+								</label>
+								<label class='btn btn-primary'>
+									<input type='radio' id='memGENDER' name='memGENDER' autocomplete='off' value='female'/>Female
+								</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Email</td>
+					<td colspan=2><input  id='memEMAIL' name='memEMAIL' class="form-control" type='text' placeholder='Input your Email!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td colspan=3 style='text-align:right;'>
+						<input type='submit' class='btn btn-primary' value='Register' />
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 	
 	<div class="panel-footer">Spring(YJW)</div>

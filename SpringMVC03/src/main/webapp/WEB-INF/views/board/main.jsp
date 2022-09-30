@@ -190,9 +190,8 @@
 </head>
 <body>
  
-<jsp:include page="../common/header.jsp" />
- 
 <div class="container">
+<jsp:include page="../common/header.jsp" />
   <h2>Good Spring</h2>
   <div class="panel panel-default">
     <div class="panel-heading">Board</div>
