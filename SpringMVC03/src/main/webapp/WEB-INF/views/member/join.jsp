@@ -11,6 +11,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <script type="text/javascript">
+	
+  	function registerCheck(){
+  		var memID = $("#memID").val();
+  		$.ajax({
+  			url : "${contextPath}/memRegisterCheck.do",
+  			type : "get",
+  			data : {"memID" : memID},
+  			success : function(result){
+  				// 중복유무 체크(result에 따라서 : result가 1이면 사용가능, 0일시 중복)
+  				alert(result);
+  			},
+  			error : function(){
+  				alert("Error!");
+  			}
+  		});
+  	}
+  
+  </script>
+  
 </head>
 <body>
  
@@ -26,7 +47,7 @@
 				<tr>
 					<td style="width:110px; vertical-align: middle;">ID</td>
 					<td><input id='memID' name='memID' class="form-control" type='text' placeholder='Input desired ID!' maxlength='20' /></td>
-					<td style="width:110px; vertical-align: middle;"><button onclick="registerCheck()" class="btn btn-primary btn-sm">Overlap Check</button></td>
+					<td style="width:110px; vertical-align: middle;"><button type="button" onclick="registerCheck()" class="btn btn-primary btn-sm">Overlap Check</button></td>
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Password</td>
