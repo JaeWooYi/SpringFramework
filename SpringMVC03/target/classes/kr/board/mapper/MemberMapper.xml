@@ -6,4 +6,9 @@
     	select * from test.mem_tbl where memID = #{memID}
     </select>
     
+    <insert id="register" parameterType="kr.board.entity.Member">
+    	insert into test.mem_tbl(memID, memPASSWORD, memNAME, memAGE, memGENDER, memEMAIL, memPROFILE)
+    	values (#{memID}, #{memPASSWORD}, #{memNAME}, #{memAGE}, #{memGENDER}, #{memEMAIL}, #{memPROFILE})
+    </insert>
+    
 </mapper>
