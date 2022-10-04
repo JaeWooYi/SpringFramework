@@ -13,10 +13,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="container">
+ 
 <jsp:include page="../common/header.jsp" />
-
+<div class="container">
   <h2>Spring MVC03</h2>
   <div class="panel panel-default">
   

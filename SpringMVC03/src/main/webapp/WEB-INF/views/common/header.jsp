@@ -25,7 +25,7 @@
 	        <li class="dropdown">
 	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Do Connect<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Sign In</a></li>
+	            <li><a href="${contextPath}/memLoginForm.do">Sign In</a></li>
 	            <li><a href="${contextPath}/memJoin.do">Sign Up</a></li>
 	          </ul>
 	        </li>
@@ -39,7 +39,7 @@
 	          <ul class="dropdown-menu">
 	            <li><a href="#">My Page</a></li>
 	            <li><a href="#">My Profile Picture</a></li>
-	            <li><a href="#">Log Out</a></li>
+	            <li><a href="${contextPath}/memLogout.do">Log Out</a></li>
 	          </ul>
 	        </li>
 	      </ul> 

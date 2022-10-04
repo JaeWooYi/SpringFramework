@@ -73,4 +73,40 @@ public class MemberController {
 		}
 	}
 	
+	// 로그아웃
+	@RequestMapping("/memLogout.do")
+	public String memLogout(HttpSession session) {
+		session.invalidate();	// 세션 끊기
+		return "redirect:/";
+	}
+	
+	// 로그인화면
+	@RequestMapping("/memLoginForm.do")
+	public String memLoginForm() {
+		return "member/memLoginForm";
+	}
+	
+	// 로그인 기능
+	@RequestMapping("/memberLogin.do")
+	public String memberLogin(Member m, RedirectAttributes rttr, HttpSession session) {
+		if(m.getMemID()==null || m.getMemID().equals("") ||
+		   m.getMemPASSWORD()==null || m.getMemPASSWORD().equals("")) {
+			rttr.addFlashAttribute("msgType", "Fail Message..");
+			rttr.addFlashAttribute("msg", "Re Input");
+			return "redirect:/memLoginForm.do";
+		}
+		
+		Member mvo = memberMapper.memberLogin(m);
+		if(mvo != null) {	//	login success
+			rttr.addFlashAttribute("msgType", "Success Message");
+			rttr.addFlashAttribute("msg", "Login Success");
+			session.setAttribute("mvo", mvo);
+			return "redirect:/";
+		}else {				// 	login fail
+			rttr.addFlashAttribute("msgType", "Fail Message");
+			rttr.addFlashAttribute("msg", "Retry");
+			return "redirect:/memLoginForm.do";
+		}
+	}
+	
 }

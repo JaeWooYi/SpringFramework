@@ -11,4 +11,9 @@
     	values (#{memID}, #{memPASSWORD}, #{memNAME}, #{memAGE}, #{memGENDER}, #{memEMAIL}, #{memPROFILE})
     </insert>
     
+    <select id="memberLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
+    	select * from test.mem_tbl
+    	where memID=#{memID} and memPASSWORD=#{memPASSWORD}
+    </select>
+    
 </mapper>

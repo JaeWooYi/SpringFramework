@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Spring Framework03</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,36 +13,46 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   <script type="text/javascript">
-    
-	$(document).ready(function(){
+  $(document).ready(function(){
 		if(${!empty msgType}){
-			$("#messageType").attr("class", "modal-content panel-success");
+			$("#messageType").attr("class", "modal-content panel-warning");
 			$("#myMessage").modal("show");
 		}
 	});
-	
   </script>
   
 </head>
 <body>
-  
+ 
 <div class="container">
-<jsp:include page="common/header.jsp" />
-  
-  <!-- Login -->
-  <c:if test="${!empty mvo}">
-  <label>[image] ${mvo.memNAME} visit my board.</label>
-  </c:if>
-  <!-- Not Login -->
-  <c:if test="${empty mvo}">
+<jsp:include page="../common/header.jsp" />
   <h2>Spring MVC03</h2>
-  </c:if>
+  <div class="panel panel-default">
   
-  <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
-  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
-</div>
-
-	<!-- Modal (Fail Message)-->
+  	<div class="panel-heading">Sign In</div>
+    
+    <div class="panel-body">
+    	<form method="post" action="${contextPath}/memberLogin.do">
+			<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
+				<tr>
+					<td style="width:110px; vertical-align: middle;">ID</td>
+					<td><input id='memID' name='memID' class="form-control" type='text' placeholder='Input ID!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td style="width:110px; vertical-align: middle;">Password</td>
+					<td colspan=2><input id='memPASSWORD' name='memPASSWORD' class="form-control" type='password' placeholder='Input password!' maxlength='20' /></td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:left;'>
+						<input type='submit' class='btn btn-primary btn-sm pull-right' value='Sign In'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+    </div>
+    
+    <!-- FAIL MESSAGE -->
+    <!-- Modal (Fail Message)-->
 	<div id="myMessage" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 	
@@ -62,7 +72,11 @@
 	
 	  </div>
 	</div>
+    
+    <div class="panel-footer">Spring(YJW)</div>
+    
+  </div>
+</div>
 
 </body>
 </html>
-    
