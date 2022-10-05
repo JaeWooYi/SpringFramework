@@ -37,7 +37,7 @@
 	        <li class="dropdown">
 	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Management Me<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">My Page</a></li>
+	            <li><a href="${contextPath}/memUpdateForm.do">My Page</a></li>
 	            <li><a href="#">My Profile Picture</a></li>
 	            <li><a href="${contextPath}/memLogout.do">Log Out</a></li>
 	          </ul>

@@ -13,4 +13,6 @@ public interface MemberMapper {
 	
 	public Member memberLogin(Member mvo);	//	Login
 	
+	public int memUpdate(Member mvo); 	// Update
+	
 }

@@ -38,8 +38,38 @@
   <h2>Spring MVC03</h2>
   </c:if>
   
-  <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
-  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
+  <div class="panel panel-default">
+  
+  	<div class="panel-heading">
+  		<img src="${contextPath}/resources/images/SpringImage.png" style="width:100%; height:500px;" />
+  	</div>
+  	
+    <div class="panel-body">
+    	<ul class="nav nav-tabs">
+		  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		  <li><a data-toggle="tab" href="#menu1">Board</a></li>
+		  <li><a data-toggle="tab" href="#menu2">Notice</a></li>
+		</ul>
+		
+		<div class="tab-content">
+		  <div id="home" class="tab-pane fade in active">
+		    <h3>HOME</h3>
+		    <p>Some content.</p>
+		  </div>
+		  <div id="menu1" class="tab-pane fade">
+		    <h3>Board</h3>
+		    <p>Some content in menu 1.</p>
+		  </div>
+		  <div id="menu2" class="tab-pane fade">
+		    <h3>Notice</h3>
+		    <p>Some content in menu 2.</p>
+		  </div>
+		</div>
+    </div>
+    
+    <div class="panel-footer">Spring(YJW)</div>
+    
+  </div>
 </div>
 
 	<!-- Modal (Fail Message)-->

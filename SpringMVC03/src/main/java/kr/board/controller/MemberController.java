@@ -59,7 +59,7 @@ public class MemberController {
 		// 회원을 테이블에 저장하기!
 		int result = memberMapper.register(mvo);
 		if(result ==1) {	// 회원가입 성공 메시지
-			rttr.addFlashAttribute("msg", "Success!");
+			rttr.addFlashAttribute("msgType", "Success!");
 			rttr.addFlashAttribute("msg", "Signed Up!!");
 			
 			// 회원가입이 성공하면 로그인처리하게 할까??
@@ -106,6 +106,52 @@ public class MemberController {
 			rttr.addFlashAttribute("msgType", "Fail Message");
 			rttr.addFlashAttribute("msg", "Retry");
 			return "redirect:/memLoginForm.do";
+		}
+	}
+	
+	// 회원정보 수정 페이지 가기
+	@RequestMapping("/memUpdateForm.do")
+	public String memUpdateForm() {
+		return "member/memUpdateForm";
+	}
+	
+	// 회원정보 수정하기
+	@RequestMapping("/memUpdate.do")
+	public String memUpdate(Member mvo, RedirectAttributes rttr, HttpSession session,
+							String memPASSWORD1, String memPASSWORD2) {
+		if(mvo.getMemID()==null || mvo.getMemID().equals("") ||
+		   memPASSWORD1==null || memPASSWORD1.equals("") ||
+		   memPASSWORD2==null || memPASSWORD2.equals("") ||
+		   mvo.getMemNAME()==null || mvo.getMemNAME().equals("") ||
+		   mvo.getMemAGE()==0 ||
+		   mvo.getMemGENDER()==null || mvo.getMemGENDER().equals("") ||
+		   mvo.getMemEMAIL()==null || mvo.getMemEMAIL().equals("")) {
+			
+			// 누락메시지와 함께 가기 --> rttr을 통해(객체바인딩 못하니까)
+			rttr.addFlashAttribute("msgType", "Fail Message");
+			rttr.addFlashAttribute("msg", "Input everything Plz!");
+			return "redirect:/memUpdateForm.do";
+		}
+		if(!memPASSWORD1.equals(memPASSWORD2)) {
+			rttr.addFlashAttribute("msgType", "Fail Message");
+			rttr.addFlashAttribute("msg", "Check Your Password!");
+			return "redirect:/memUpdateForm.do";
+		}
+		
+		// 회원을 테이블에 저장하기!
+		int result = memberMapper.memUpdate(mvo);
+		if(result ==1) {	// 수정 성공 메시지
+			rttr.addFlashAttribute("msgType", "Success!");
+			rttr.addFlashAttribute("msg", "Update success!!");
+			
+			// 수정 성공하면 로그인처리
+			session.setAttribute("mvo", mvo);
+			
+			return "redirect:/";
+		}else {
+			rttr.addFlashAttribute("msg", "Fail..");
+			rttr.addFlashAttribute("msg", "Update Fail..");
+			return "redirect:/memUpdateForm.do";
 		}
 	}
 	
