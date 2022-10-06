@@ -1,5 +1,6 @@
 package kr.board.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.board.entity.Member;
 import kr.board.mapper.MemberMapper;
@@ -67,7 +71,7 @@ public class MemberController {
 			
 			return "redirect:/";
 		}else {
-			rttr.addFlashAttribute("msg", "Fail..");
+			rttr.addFlashAttribute("msgType", "Fail..");
 			rttr.addFlashAttribute("msg", "Already member..");
 			return "redirect:/memJoin.do";
 		}
@@ -149,10 +153,41 @@ public class MemberController {
 			
 			return "redirect:/";
 		}else {
-			rttr.addFlashAttribute("msg", "Fail..");
+			rttr.addFlashAttribute("msgType", "Fail..");
 			rttr.addFlashAttribute("msg", "Update Fail..");
 			return "redirect:/memUpdateForm.do";
 		}
+	}
+	
+	// 프로필 사진등록 화면!!
+	@RequestMapping("/memImageForm.do")
+	public String memImageForm() {
+		return "member/memImageForm";
+	}
+	
+	// 프로필 사진등록(upload -> DB에 이미지 경로 저장)
+	@RequestMapping("/memImageUpdate.do")
+	public String memImageUpdate(HttpServletRequest request, RedirectAttributes rttr) {
+		// 파일업로드 API(cos.jar(고전방식)쓸거임)
+		MultipartRequest multi = null;
+		int fileMaxSize = 10*1024*1024;	// 10MB를 의미
+		
+		// 실제 경로 -> /Users/EGOVEDU/eGovFrame-3.10.0/workspace.edu2/SpringFramework/SpringMVC03/src/main/webapp/resources/upload
+		// 이클립스가 관리하는 경로 -> /Users/EGOVEDU/eGovFrame-3.10.0/workspace.edu2/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SpringMVC03/resources/upload
+		String savePath = request.getRealPath("resources/upload");
+		
+		// 업로드하려면 예외 처리가필요하데 ....
+		try {
+			// 이미지 업로드
+			multi = new MultipartRequest(request, savePath, fileMaxSize, "UTF-8", new DefaultFileRenamePolicy());
+		}catch(Exception e){
+			e.printStackTrace();
+			rttr.addFlashAttribute("msgType", "Fail..");
+			rttr.addFlashAttribute("msg", "Upload Fail(10MB 이하로 업로드 해주십시오)..");
+			return "redirect:/memImageForm.do";
+		}
+		
+		return "";
 	}
 	
 }

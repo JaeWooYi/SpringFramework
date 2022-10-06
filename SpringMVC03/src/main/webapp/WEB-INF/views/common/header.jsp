@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />	<!-- contextPath가 m03하고 같은거 -->
 
-<nav class="navbar navbar-inverse">
+
+<!-- <nav class="navbar navbar-inverse" style="margin-top : 10px;"> -->	<!-- 검정색 -->
+<nav class="navbar navbar-default" style="margin-top : 10px;">	<!-- 약간회색 -->
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -21,28 +23,18 @@
       </ul>
       
       <c:if test="${empty mvo}">	<!-- 로그인을 하지 않은 경우 -->
-	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Do Connect<span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="${contextPath}/memLoginForm.do">Sign In</a></li>
-	            <li><a href="${contextPath}/memJoin.do">Sign Up</a></li>
-	          </ul>
-	        </li>
+	      <ul class="nav navbar-nav navbar-right"> 
+            <li><a href="${contextPath}/memLoginForm.do"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+            <li><a href="${contextPath}/memJoin.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 	      </ul>
       </c:if>
       
       <c:if test="${!empty mvo}">	<!-- 로그인을 한 경우 -->
 	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Management Me<span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="${contextPath}/memUpdateForm.do">My Page</a></li>
-	            <li><a href="#">My Profile Picture</a></li>
-	            <li><a href="${contextPath}/memLogout.do">Log Out</a></li>
-	          </ul>
-	        </li>
-	      </ul> 
+            <li><a href="${contextPath}/memUpdateForm.do"><span class="glyphicon glyphicon-cog"></span> My Page</a></li>
+            <li><a href="${contextPath}/memImageForm.do"><span class="glyphicon glyphicon-picture"></span> My Image Picture</a></li>
+            <li><a href="${contextPath}/memLogout.do"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	      </ul>
       </c:if>
       
     </div>
