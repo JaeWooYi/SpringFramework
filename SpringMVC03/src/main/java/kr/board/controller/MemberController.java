@@ -1,5 +1,7 @@
 package kr.board.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -167,7 +169,7 @@ public class MemberController {
 	
 	// 프로필 사진등록(upload -> DB에 이미지 경로 저장)
 	@RequestMapping("/memImageUpdate.do")
-	public String memImageUpdate(HttpServletRequest request, RedirectAttributes rttr) {
+	public String memImageUpdate(HttpServletRequest request, RedirectAttributes rttr, HttpSession session) {
 		// 파일업로드 API(cos.jar(고전방식)쓸거임)
 		MultipartRequest multi = null;
 		int fileMaxSize = 10*1024*1024;	// 10MB를 의미
@@ -186,8 +188,45 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "Upload Fail(10MB 이하로 업로드 해주십시오)..");
 			return "redirect:/memImageForm.do";
 		}
+
+		// DB에 업데이트 하기
+		String memID =  multi.getParameter("memID");
+		String newProfile = "";
+		File file = multi.getFile("memPROFILE");
+		if(file != null) {	// 업로드가 된 상태(png, jpg, gif만 해야해)
+			// 이미지파일여부 체크 -> 이미지파일이 아니라면 삭제 해야함
+			String ext = file.getName().substring(file.getName().lastIndexOf(".")+1);
+			ext = ext.toUpperCase();
+			if(ext.equals("PNG") || ext.equals("GIF") || ext.equals("JPG") || ext.equals("JPEG")) {		// 이미지 파일 일시
+				// 새로 업로드된 이미지(new -> abcd.png), 현재 DB에 있는 이미지(old -> abcd1.png)
+				String oldProfile = memberMapper.getMember(memID).getMemPROFILE();
+				File oldFile = new File(savePath+ "/" + oldProfile);
+				if(oldFile.exists()) {
+					oldFile.delete();
+				}
+				newProfile = file.getName();
+			}else {	// 이미지 파일이 아닐시
+				if(file.exists()) {
+					file.delete();	// 삭제
+				}
+				rttr.addFlashAttribute("msgType", "Fail..");
+				rttr.addFlashAttribute("msg", "Upload Fail (이미지 파일만 업로드 해주세요.)");
+				return "redirect:/memImageForm.do";
+			}
+		}
 		
-		return "";
+		// 새로운 이미지 디비에 업데이트
+		Member mvo = new Member();
+		mvo.setMemID(memID);
+		mvo.setMemPROFILE(newProfile);
+		memberMapper.memProfileUpdate(mvo);
+		Member m = memberMapper.getMember(memID);	// 다시 회원정보를 가지고 와서 다시 업데이트된 멤버를 가지고 와야 한다
+		// 세션생성(새롭게) : 이미지가 업데이트 된거로
+		session.setAttribute("mvo", m);
+		rttr.addFlashAttribute("msgType", "Success!!");
+		rttr.addFlashAttribute("msg", "Upload Success (업로드 되었습니다.)");
+		
+		return "redirect:/";
 	}
 	
 }

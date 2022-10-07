@@ -15,4 +15,7 @@ public interface MemberMapper {
 	
 	public int memUpdate(Member mvo); 	// Update
 	
+	public Member getMember(String memID);
+	public void memProfileUpdate(Member mvo);
+	
 }

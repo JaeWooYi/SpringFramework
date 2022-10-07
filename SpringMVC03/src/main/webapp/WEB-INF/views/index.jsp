@@ -40,7 +40,7 @@
   	</c:if>
   	<c:if test="${mvo.memPROFILE != ''}">
   	<%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
-  		<img src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px;"/>
+  		<img src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin-bottom:5px;"/>
   	</c:if>
   	<label>${mvo.memNAME} visit my board.</label>
   </c:if>
