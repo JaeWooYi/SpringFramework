@@ -13,7 +13,7 @@ public class Board {
 	private String writer; 	// 게시판 작성자
 	private String indate;	// 작성일
 	private int count;		// 조회수
-	
+	private String memID;	// 회원아이디
 	
 	/**
 	 * 원래 같은 경우 getter, setter 이런식으로 만들어 준다.
@@ -54,6 +54,12 @@ public class Board {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getMemID() {
+		return memID;
+	}
+	public void setMemID(String memID) {
+		this.memID = memID;
 	}
 	
 }

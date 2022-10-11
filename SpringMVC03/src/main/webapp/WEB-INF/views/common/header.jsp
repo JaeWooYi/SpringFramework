@@ -19,7 +19,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="${contextPath}/">Home</a></li>
         <li><a href="boardMain.do">Go Board</a></li>
-        <li><a href="#">Page 2</a></li>
+        <!-- <li><a href="#">Page 2</a></li> -->
       </ul>
       
       <c:if test="${empty mvo}">	<!-- 로그인을 하지 않은 경우 -->
@@ -34,6 +34,19 @@
             <li><a href="${contextPath}/memUpdateForm.do"><span class="glyphicon glyphicon-cog"></span> My Page</a></li>
             <li><a href="${contextPath}/memImageForm.do"><span class="glyphicon glyphicon-picture"></span> My Image Picture</a></li>
             <li><a href="${contextPath}/memLogout.do"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            
+			<!-- Login -->
+			<c:if test="${!empty mvo}">
+				<c:if test="${mvo.memPROFILE eq ''}">
+					<li><img class="img-circle" src="${contextPath}/resources/images/person.png" style="width:50px; height:50px;"/>${mvo.memNAME} welcome!!</li>
+				</c:if>
+				<c:if test="${mvo.memPROFILE != ''}">
+					<%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
+					<li><img class="img-circle" src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin:2px;"/>${mvo.memNAME} welcome!!</li>
+				</c:if>
+				<%-- <label>${mvo.memNAME} visit my board.</label> --%>
+			</c:if>            
+            
 	      </ul>
       </c:if>
       

@@ -30,21 +30,10 @@
 <jsp:include page="common/header.jsp" />
 
   <!-- Not Login -->
-  <c:if test="${empty mvo}">
+  <%-- <c:if test="${empty mvo}">
   	<h2>Spring MVC03</h2>
-  </c:if>  
-  <!-- Login -->
-  <c:if test="${!empty mvo}">
-  	<c:if test="${mvo.memPROFILE eq ''}">
-  		<img src="${contextPath}/resources/images/person.png" style="width:50px; height:50px;"/>
-  	</c:if>
-  	<c:if test="${mvo.memPROFILE != ''}">
-  	<%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
-  		<img src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin-bottom:5px;"/>
-  	</c:if>
-  	<label>${mvo.memNAME} visit my board.</label>
-  </c:if>
-  
+  </c:if> --%>
+   
   <div class="panel panel-default">
   
   	<div class="panel-heading">

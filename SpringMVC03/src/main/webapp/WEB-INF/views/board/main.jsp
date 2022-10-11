@@ -51,18 +51,29 @@
 		  listHtml += "<td colspan='4'>Content!";
 		  /* listHtml += "<textarea id='ta"+obj.idx+"' readonly='readonly' rows='7' class ='form-control'>"+ obj.content +"</textarea>"; */
 		  listHtml += "<textarea id='ta"+obj.idx+"' readonly='readonly' rows='7' class ='form-control'></textarea>";
-		  listHtml += "<br/>";
-		  listHtml += "<span id='up"+obj.idx+"'><button class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>Modify</button></span>&nbsp";
-		  listHtml += "<button class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>Delete</button>";
+		
+		  if("${mvo.memID}"==obj.memID){
+			  listHtml += "<br/>";
+			  listHtml += "<span id='up"+obj.idx+"'><button class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>Modify</button></span>&nbsp";
+			  listHtml += "<button class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>Delete</button>";
+		  }else{
+			  listHtml += "<br/>";
+			  listHtml += "<span id='up"+obj.idx+"'><button disabled class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>Modify</button></span>&nbsp";
+			  listHtml += "<button disabled class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>Delete</button>";
+		  }
+		  
 		  listHtml += "</td>";
 		  listHtml += "</tr>";
 	  });
 	  
+	  // 로그인을 해야 글쓰기가 보여야함
+	  if(${!empty mvo}){
 	  listHtml += "<tr>";
 	  listHtml += "<td colspan='5'>";
 	  listHtml += "<button class='btn btn-primary btn-sm' onclick='goForm()'>Board Write!</button>";
 	  listHtml += "</td>";
 	  listHtml += "</tr>";
+	  }
 	  
 	  listHtml += "</talbe>";
 	  $("#view").html(listHtml);
@@ -192,7 +203,7 @@
  
 <div class="container">
 <jsp:include page="../common/header.jsp" />
-  <h2>Good Spring</h2>
+  <h3>Good Spring Board</h3>
   <div class="panel panel-default">
     <div class="panel-heading">Board</div>
     
@@ -202,6 +213,7 @@
     
     <div class="panel-body" id="wform" style="display:none" >
     	<form id="frm">
+    		<input type="hidden" value="${mvo.memID}" name="memID" id="memID" />
 	    	<table class="table">
 	    		<tr>
 	    			<td>Title</td>
@@ -213,7 +225,7 @@
 	    		</tr>
 	    		<tr>
 	    			<td>Writer</td>
-	    			<td><input type="text" id="writer" name="writer" class="form-control"/></td>
+	    			<td><input type="text" id="writer" name="writer" class="form-control" readonly="readonly" value="${mvo.memID}"/></td>
 	    		</tr>
 	    		<tr>
 	    			<td colspan="2" align="center">
