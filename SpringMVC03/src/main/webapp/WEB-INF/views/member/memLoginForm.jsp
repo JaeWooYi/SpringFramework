@@ -17,7 +17,7 @@
 	 	if(${!empty msgType}){
 			$("#messageType").attr("class", "modal-content panel-warning");
 			$("#myMessage").modal("show");
-		}
+		} 
 	});
   </script>
   
