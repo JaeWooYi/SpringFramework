@@ -13,8 +13,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   <script type="text/javascript">
-  $(document).ready(function(){
-		if(${!empty msgType}){
+	$(document).ready(function(){
+	 	if(${!empty msgType}){
 			$("#messageType").attr("class", "modal-content panel-warning");
 			$("#myMessage").modal("show");
 		}
