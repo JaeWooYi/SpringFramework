@@ -5,6 +5,7 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+// web.xml대신 만든 java
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override
