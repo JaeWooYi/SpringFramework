@@ -32,7 +32,7 @@
   	<div class="panel-heading">Profile Image Register</div>
     
     <div class="panel-body">
-    	<form method="post" action="${contextPath}/memImageUpdate.do" enctype="multipart/form-data">
+    	<form method="post" action="${contextPath}/memImageUpdate.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
     		<input type="hidden" name="memID" value="${mvo.memID}" />
 			<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
 				<tr>

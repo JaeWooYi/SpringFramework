@@ -37,11 +37,12 @@
             
 			<!-- Login -->
 			<c:if test="${!empty mvo}">
-				<c:if test="${mvo.memPROFILE eq ''}">
+				<%-- <c:if test="${mvo.memPROFILE eq ''}"> --%>
+				<c:if test="${empty mvo.memPROFILE}">	<!-- 이게 위에보다 더 정확한 null체크야 -->
 					<li><img class="img-circle" src="${contextPath}/resources/images/person.png" style="width:50px; height:50px;"/>${mvo.memNAME} welcome!!</li>
 				</c:if>
-				<c:if test="${mvo.memPROFILE != ''}">
-					<%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
+				<c:if test="${!empty mvo.memPROFILE}">
+			    <%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
 					<li><img class="img-circle" src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin:2px;"/>${mvo.memNAME} welcome!!</li>
 				</c:if>
 				<%-- <label>${mvo.memNAME} visit my board.</label> --%>
