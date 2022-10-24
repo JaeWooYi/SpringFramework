@@ -151,7 +151,8 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "Update success!!");
 			
 			// 수정 성공하면 로그인처리
-			session.setAttribute("mvo", mvo);
+			Member mvo2 = memberMapper.getMember(mvo.getMemID());
+			session.setAttribute("mvo", mvo2);
 			
 			return "redirect:/";
 		}else {

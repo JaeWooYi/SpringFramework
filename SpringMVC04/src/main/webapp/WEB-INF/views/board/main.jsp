@@ -12,6 +12,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   <script type="text/javascript">
+  /* csrf토큰! */
+  var csrfHeaderName = "${_csrf.headerName}";
+  var csrfTokenValue = "${_csrf.token}";
+  
   $(document).ready(function(){
 	  loadList();
   });
@@ -105,6 +109,12 @@
 		  url : "board/new",
 		  type : "post", 
 		  data : fData,
+		  
+		  /* 이거로 맨위에 글로벌 변수를 보내준다. */
+		  beforeSend: function(xhr){
+			  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			  },
+		  
 		  success : loadList,
 		  error : function(){
 			  alert("error");
@@ -142,7 +152,10 @@
 		
 		$.ajax({
 			url : "board/count/"+idx,
-			type : "put",
+			type : "put",	/* put은 일종의 post방식 그래서 아래 beforeSend가 필요한거야, 아래 수정과 삭제에도 넣어주자! */
+			beforeSend: function(xhr){
+				  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+				  },
 			/* data : {"idx" : idx}, */
 			dataType : "json",
 			success : function(data){
@@ -163,6 +176,9 @@
 		  /* type : "get", */
 		  type : "delete",
 		  /* data : {"idx" : idx}, */
+		  beforeSend: function(xhr){
+			  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			  },
 		  success : loadList,
 		  error : function(){
 			  alert("error!!");
@@ -189,6 +205,9 @@
 		 type : "put",
 		 contentType : 'application/json;charset=utf-8',
 		 data : JSON.stringify({"idx":idx, "title":newTitle, "content":newContent}),
+		 beforeSend: function(xhr){
+			  xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			  },
 		 success : loadList,
 		 error : function(){
 			 alert("error");
