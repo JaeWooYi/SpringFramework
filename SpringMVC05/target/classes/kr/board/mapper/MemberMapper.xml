@@ -3,31 +3,37 @@
 <mapper namespace="kr.board.mapper.MemberMapper">
     
     <select id="registerCheck" resultType="kr.board.entity.Member">
-    	select * from test.mem_tbl where memID = #{memID}
+    	select * from test.mem_stbl where memID = #{memID}
     </select>
     
     <insert id="register" parameterType="kr.board.entity.Member">
-    	insert into test.mem_tbl(memID, memPASSWORD, memNAME, memAGE, memGENDER, memEMAIL, memPROFILE)
-    	values (#{memID}, #{memPASSWORD}, #{memNAME}, #{memAGE}, #{memGENDER}, #{memEMAIL}, #{memPROFILE})
+    	insert into test.mem_stbl(memIDX, memID, memPASSWORD, memNAME, memAGE, memGENDER, memEMAIL, memPROFILE)
+    	values ((select IFNULL(MAX(memID)+1,1) from test.mem_stbl mem), 
+    	#{memID}, #{memPASSWORD}, #{memNAME}, #{memAGE}, #{memGENDER}, #{memEMAIL}, #{memPROFILE})
     </insert>
     
     <select id="memberLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
-    	select * from test.mem_tbl
+    	select * from test.mem_stbl
     	where memID=#{memID} and memPASSWORD=#{memPASSWORD}
     </select>
     
     <update id="memUpdate" parameterType="kr.board.entity.Member">
-    	update test.mem_tbl set memPASSWORD = #{memPASSWORD}, memNAME = #{memNAME}, 
+    	update test.mem_stbl set memPASSWORD = #{memPASSWORD}, memNAME = #{memNAME}, 
     	memAGE = #{memAGE}, memGENDER = #{memGENDER}, memEMAIL = #{memEMAIL}
     	where memID = #{memID}
     </update>
     
+    <!-- 수정 해야함 : 권한때문에 join해야함 -->
     <select id="getMember" resultType="kr.board.entity.Member">
-    	select * from test.mem_tbl where memID=#{memID} 
+    	select * from test.mem_stbl where memID=#{memID}
     </select>
     
     <update id="memProfileUpdate" parameterType="kr.board.entity.Member">
-    	update test.mem_tbl set memPROFILE = #{memPROFILE} where memID = #{memID}
+    	update test.mem_stbl set memPROFILE = #{memPROFILE} where memID = #{memID}
     </update>
+    
+    <insert id="authInsert" parameterType="kr.board.entity.AuthVO">
+    	INSERT INTO test.mem_auth(memID, auth) values (#{memID}, #{auth})
+    </insert>
     
 </mapper>

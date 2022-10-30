@@ -1,11 +1,13 @@
 package kr.board.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kr.board.entity.AuthVO;
 import kr.board.entity.Member;
 import kr.board.mapper.MemberMapper;
 
@@ -22,6 +25,10 @@ public class MemberController {
 
 	@Autowired
 	MemberMapper memberMapper;
+	
+	// MVC04에서 추가된 부분
+	@Autowired
+	PasswordEncoder pwEncoder;
 	
 	@RequestMapping("/memJoin.do")
 	public String memJoin() {
@@ -46,7 +53,7 @@ public class MemberController {
 		   memPASSWORD2==null || memPASSWORD2.equals("") ||
 //		   mvo.getMemPASSWORD()==null || mvo.getMemPASSWORD().equals("") ||
 		   mvo.getMemNAME()==null || mvo.getMemNAME().equals("") ||
-		   mvo.getMemAGE()==0 ||
+		   mvo.getMemAGE()==0 || mvo.getAuthList().size()==0 ||
 		   mvo.getMemGENDER()==null || mvo.getMemGENDER().equals("") ||
 		   mvo.getMemEMAIL()==null || mvo.getMemEMAIL().equals("")) {
 			
@@ -62,14 +69,29 @@ public class MemberController {
 		}
 		mvo.setMemPROFILE("");	// 사진 이미지는 일단 보류
 		
-		// 회원을 테이블에 저장하기!
+		// 회원을 테이블에 저장하기!	// 추가(MVC04	와 다른점) : 비밀번호를 암호화해야 한다.
+		String encyptPw = pwEncoder.encode(mvo.getMemPASSWORD());	// password를 암호화 시켜서 encyptPw로 받자
+		mvo.setMemPASSWORD(encyptPw);
+		//	register() 수정 해줘야 함 -> MemberMapper.xml --- 추가(MVC04	와 다른점)
 		int result = memberMapper.register(mvo);
 		if(result ==1) {	// 회원가입 성공 메시지
+			// 추가(MVC04	와 다른점) : 권한 테이블에 회원의 권환을 저장하기
+			List<AuthVO> list =  mvo.getAuthList();
+			for(AuthVO authVO : list) {
+				if(authVO.getAuth() != null) {
+					AuthVO saveVO = new AuthVO();
+					saveVO.setMemID(mvo.getMemID());	// 회원 ID
+					saveVO.setAuth(authVO.getAuth());	// 회원의 권한
+					memberMapper.authInsert(saveVO);
+				}
+			}
+			
 			rttr.addFlashAttribute("msgType", "Success!");
 			rttr.addFlashAttribute("msg", "Signed Up!!");
 			
 			// 회원가입이 성공하면 로그인처리하게 할까??
-			session.setAttribute("mvo", mvo); // ${empty m}인지 체크해보기 or ${!empty m}	// header.jsp 가봐 있어
+			Member mvo2 = memberMapper.getMember(mvo.getMemID());	// 추가(MVC04	와 다른점) // getMember() -> 역시 수정되어야함 : 회원정보 + 회원권한 정보 (xml파일)
+			session.setAttribute("mvo", mvo2); // ${empty m}인지 체크해보기 or ${!empty m}	// header.jsp 가봐 있어
 			
 			return "redirect:/";
 		}else {

@@ -1,6 +1,8 @@
 package kr.board.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import kr.board.entity.AuthVO;
 import kr.board.entity.Member;
 
 // mybatis-api를 쓰면 아래 어노테이션을 쓸 수 있다.
@@ -17,5 +19,7 @@ public interface MemberMapper {
 	
 	public Member getMember(String memID);
 	public void memProfileUpdate(Member mvo);
+
+	public void authInsert(AuthVO saveVO);
 	
 }
