@@ -92,7 +92,7 @@ public class MemberController {
 			// 회원가입이 성공하면 로그인처리하게 할까??
 			Member mvo2 = memberMapper.getMember(mvo.getMemID());	// 추가(MVC04	와 다른점) // getMember() -> 역시 수정되어야함 : 회원정보 + 회원권한 정보 (xml파일)
 			session.setAttribute("mvo", mvo2); // ${empty m}인지 체크해보기 or ${!empty m}	// header.jsp 가봐 있어
-			
+			System.out.println("회원가입 성공!! : " + mvo2);
 			return "redirect:/";
 		}else {
 			rttr.addFlashAttribute("msgType", "Fail..");
