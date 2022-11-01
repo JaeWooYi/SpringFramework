@@ -39,11 +39,23 @@
 			<c:if test="${!empty mvo}">
 				<%-- <c:if test="${mvo.memPROFILE eq ''}"> --%>
 				<c:if test="${empty mvo.memPROFILE}">	<!-- 이게 위에보다 더 정확한 null체크야 -->
-					<li><img class="img-circle" src="${contextPath}/resources/images/person.png" style="width:50px; height:50px;"/>${mvo.memNAME} welcome!!</li>
+					<li><img class="img-circle" src="${contextPath}/resources/images/person.png" style="width:50px; height:50px;"/>${mvo.memNAME} welcome!!(
+					<c:forEach var="authVO" items="${mvo.authList}" >
+						<c:if test="${authVO.auth eq 'ROLE_USER'}">(User)</c:if>
+						<c:if test="${authVO.auth eq 'ROLE_MANAGER'}">(Manger)</c:if>
+						<c:if test="${authVO.auth eq 'ROLE_ADMIN'}">(Admin)</c:if>
+					</c:forEach>
+					)</li>
 				</c:if>
 				<c:if test="${!empty mvo.memPROFILE}">
 			    <%-- <c:if test="${mvo.memProfile ne ''}"> --%>		<!-- !=말고 ne로 해도 된다(jstl문법) -->
-					<li><img class="img-circle" src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin:2px;"/>${mvo.memNAME} welcome!!</li>
+					<li><img class="img-circle" src="${contextPath}/resources/upload/${mvo.memPROFILE}" style="width:50px; height:50px; margin:2px;"/>${mvo.memNAME} welcome!!(
+					<c:forEach var="authVO" items="${mvo.authList}" >
+						<c:if test="${authVO.auth eq 'ROLE_USER'}">(User)</c:if>
+						<c:if test="${authVO.auth eq 'ROLE_MANAGER'}">(Manger)</c:if>
+						<c:if test="${authVO.auth eq 'ROLE_ADMIN'}">(Admin)</c:if>
+					</c:forEach>
+					)</li>
 				</c:if>
 				<%-- <label>${mvo.memNAME} visit my board.</label> --%>
 			</c:if>            
