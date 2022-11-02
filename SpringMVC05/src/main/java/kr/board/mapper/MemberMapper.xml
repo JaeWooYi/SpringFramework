@@ -38,9 +38,9 @@
 		#{memGENDER},#{memEMAIL},#{memPROFILE})
     </insert>
     
-    <select id="memberLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
-    	select * from test.mem_stbl
-    	where memID=#{memID} and memPASSWORD=#{memPASSWORD}
+    <select id="memberLogin" parameterType="kr.board.entity.Member" resultMap="memberMap">
+    	select * from test.mem_stbl mem LEFT OUTER JOIN test.mem_auth auth on
+    	mem.memID=auth.memID where mem.memID=#{memID}
     </select>
     
     <update id="memUpdate" parameterType="kr.board.entity.Member">

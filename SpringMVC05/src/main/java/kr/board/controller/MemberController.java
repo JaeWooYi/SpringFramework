@@ -125,10 +125,10 @@ public class MemberController {
 		}
 		
 		Member mvo = memberMapper.memberLogin(m);
-		if(mvo != null) {	//	login success
+		if(mvo != null && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())) {	//	login success	// springMVC05에서 추가된 부분 : && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())
 			rttr.addFlashAttribute("msgType", "Success Message");
 			rttr.addFlashAttribute("msg", "Login Success");
-			session.setAttribute("mvo", mvo);
+			session.setAttribute("mvo", mvo);	// ${!empty mvo}
 			return "redirect:/";
 		}else {				// 	login fail
 			rttr.addFlashAttribute("msgType", "Fail Message");
