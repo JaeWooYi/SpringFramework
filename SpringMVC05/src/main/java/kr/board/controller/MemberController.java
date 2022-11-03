@@ -151,7 +151,7 @@ public class MemberController {
 		   memPASSWORD1==null || memPASSWORD1.equals("") ||
 		   memPASSWORD2==null || memPASSWORD2.equals("") ||
 		   mvo.getMemNAME()==null || mvo.getMemNAME().equals("") ||
-		   mvo.getMemAGE()==0 ||
+		   mvo.getMemAGE()==0 || mvo.getAuthList().size()==0 ||
 		   mvo.getMemGENDER()==null || mvo.getMemGENDER().equals("") ||
 		   mvo.getMemEMAIL()==null || mvo.getMemEMAIL().equals("")) {
 			
@@ -167,8 +167,24 @@ public class MemberController {
 		}
 		
 		// 회원을 테이블에 저장하기!
+		String encyptPW =pwEncoder.encode(mvo.getMemPASSWORD());
+		mvo.setMemPASSWORD(encyptPW);
 		int result = memberMapper.memUpdate(mvo);
 		if(result ==1) {	// 수정 성공 메시지
+			// 기존 권한을 삭제하고
+			memberMapper.authDelete(mvo.getMemID());
+			
+			// 새로운 권한을 추가
+			List<AuthVO>  list = mvo.getAuthList();
+			for(AuthVO authVO : list) {
+				if(authVO.getAuth() != null) {
+					AuthVO saveVO = new AuthVO();
+					saveVO.setMemID(mvo.getMemID());	// 회원 ID
+					saveVO.setAuth(authVO.getAuth());	// 회원의 권한
+					memberMapper.authInsert(saveVO);
+				}
+			}
+			
 			rttr.addFlashAttribute("msgType", "Success!");
 			rttr.addFlashAttribute("msg", "Update success!!");
 			

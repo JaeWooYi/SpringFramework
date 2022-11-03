@@ -22,4 +22,6 @@ public interface MemberMapper {
 
 	public void authInsert(AuthVO saveVO);
 	
+	public void authDelete(String memID);
+	
 }
