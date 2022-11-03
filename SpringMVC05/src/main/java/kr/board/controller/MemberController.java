@@ -184,7 +184,7 @@ public class MemberController {
 					memberMapper.authInsert(saveVO);
 				}
 			}
-			 
+			
 			rttr.addFlashAttribute("msgType", "Success!");
 			rttr.addFlashAttribute("msg", "Update success!!");
 			
