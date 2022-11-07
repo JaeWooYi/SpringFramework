@@ -114,28 +114,29 @@ public class MemberController {
 		return "member/memLoginForm";
 	}
 	
+	// SecurityConfig.java 의 loginProcessingUrl()로 인해 로그인기능을 우리가 직접 안해도 된다.
 	// 로그인 기능
-	@RequestMapping("/memberLogin.do")
-	public String memberLogin(Member m, RedirectAttributes rttr, HttpSession session) {
-		if(m.getMemID()==null || m.getMemID().equals("") ||
-		   m.getMemPASSWORD()==null || m.getMemPASSWORD().equals("")) {
-			rttr.addFlashAttribute("msgType", "Fail Message..");
-			rttr.addFlashAttribute("msg", "Re Input");
-			return "redirect:/memLoginForm.do";
-		}
-		
-		Member mvo = memberMapper.memberLogin(m);
-		if(mvo != null && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())) {	//	login success	// springMVC05에서 추가된 부분 : && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())
-			rttr.addFlashAttribute("msgType", "Success Message");
-			rttr.addFlashAttribute("msg", "Login Success");
-			session.setAttribute("mvo", mvo);	// ${!empty mvo}
-			return "redirect:/";
-		}else {				// 	login fail
-			rttr.addFlashAttribute("msgType", "Fail Message");
-			rttr.addFlashAttribute("msg", "Retry");
-			return "redirect:/memLoginForm.do";
-		}
-	}
+//	@RequestMapping("/memberLogin.do")
+//	public String memberLogin(Member m, RedirectAttributes rttr, HttpSession session) {
+//		if(m.getMemID()==null || m.getMemID().equals("") ||
+//		   m.getMemPASSWORD()==null || m.getMemPASSWORD().equals("")) {
+//			rttr.addFlashAttribute("msgType", "Fail Message..");
+//			rttr.addFlashAttribute("msg", "Re Input");
+//			return "redirect:/memLoginForm.do";
+//		}
+//		
+//		Member mvo = memberMapper.memberLogin(m);
+//		if(mvo != null && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())) {	//	login success	// springMVC05에서 추가된 부분 : && pwEncoder.matches(m.getMemPASSWORD(), mvo.getMemPASSWORD())
+//			rttr.addFlashAttribute("msgType", "Success Message");
+//			rttr.addFlashAttribute("msg", "Login Success");
+//			session.setAttribute("mvo", mvo);	// ${!empty mvo}
+//			return "redirect:/";
+//		}else {				// 	login fail
+//			rttr.addFlashAttribute("msgType", "Fail Message");
+//			rttr.addFlashAttribute("msg", "Retry");
+//			return "redirect:/memLoginForm.do";
+//		}
+//	}
 	
 	// 회원정보 수정 페이지 가기
 	@RequestMapping("/memUpdateForm.do")
@@ -266,6 +267,11 @@ public class MemberController {
 		rttr.addFlashAttribute("msg", "Upload Success (업로드 되었습니다.)");
 		
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/access-denied")
+	public String showAccessDenied() {
+		return "access-denied";
 	}
 	
 }

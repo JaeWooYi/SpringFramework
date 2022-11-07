@@ -13,7 +13,7 @@ public interface MemberMapper {
 	
 	public int register(Member m);	// 회원 등록( 성공 : 1, 실패 : 0)
 	
-	public Member memberLogin(Member mvo);	//	Login
+	public Member memberLogin(String username);	//	Login
 	
 	public int memUpdate(Member mvo); 	// Update
 	
