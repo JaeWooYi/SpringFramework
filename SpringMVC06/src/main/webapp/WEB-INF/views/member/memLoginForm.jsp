@@ -32,15 +32,15 @@
   	<div class="panel-heading">Sign In</div>
     
     <div class="panel-body">
-    	<form method="post" action="${contextPath}/memberLogin.do">
+    	<form method="post" action="${contextPath}/memLogin.do">
 			<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
 				<tr>
 					<td style="width:110px; vertical-align: middle;">ID</td>
-					<td><input id='memID' name='memID' class="form-control" type='text' placeholder='Input ID!' maxlength='20' /></td>
+					<td><input id='memID' name='username' class="form-control" type='text' placeholder='Input ID!' maxlength='20' /></td>
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Password</td>
-					<td colspan=2><input id='memPASSWORD' name='memPASSWORD' class="form-control" type='password' placeholder='Input password!' maxlength='20' /></td>
+					<td colspan=2><input id='memPASSWORD' name='password' class="form-control" type='password' placeholder='Input password!' maxlength='20' /></td>
 				</tr>
 				<tr>
 					<td colspan=2 style='text-align:left;'>

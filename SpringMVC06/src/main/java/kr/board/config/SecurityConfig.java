@@ -2,18 +2,33 @@ package kr.board.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import kr.board.security.MemberUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Bean
+	public UserDetailsService memberUserDetailsService() {
+		return new MemberUserDetailsService();
+	}
+	
+	// 위 빈을 등록
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(memberUserDetailsService()).passwordEncoder(passwordEncoder());
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// ~요청에 대한 보안 설정
@@ -30,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.and()							// 다음 또 권한 걸고싶을때 사용
 			.formLogin()						// 어떤 url이 왔을때 로그인페이지로 갈건지
 				.loginPage("/memLoginForm.do")
-				.loginProcessingUrl("/memberLogin.do")	// 스프링 인증 api를 거치겠다 -> /memLogin.do url을 통해서
+				.loginProcessingUrl("/memLogin.do")	// 스프링 인증 api를 거치겠다 -> /memLogin.do url을 통해서
 				.permitAll()
 				.and()
 			.logout()

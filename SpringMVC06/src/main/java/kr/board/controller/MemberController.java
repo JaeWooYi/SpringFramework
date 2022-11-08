@@ -102,11 +102,11 @@ public class MemberController {
 	}
 	
 	// 로그아웃
-	@RequestMapping("/memLogout.do")
-	public String memLogout(HttpSession session) {
-		session.invalidate();	// 세션 끊기
-		return "redirect:/";
-	}
+//	@RequestMapping("/memLogout.do")
+//	public String memLogout(HttpSession session) {
+//		session.invalidate();	// 세션 끊기
+//		return "redirect:/";
+//	}
 	
 	// 로그인화면
 	@RequestMapping("/memLoginForm.do")
