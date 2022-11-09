@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.exceptionHandling().accessDeniedPage("/access-denied");// 혹시라도 오류가 날 수도 있기때문에 예외처리를 해주자
 	}
 	
+	// 패스워드 인코딩 객체 설정
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

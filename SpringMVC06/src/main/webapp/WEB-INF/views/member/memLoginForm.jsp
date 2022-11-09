@@ -14,10 +14,12 @@
   
   <script type="text/javascript">
 	$(document).ready(function(){
-	 	if(${!empty msgType}){
+		if(${param.error != null}){
 			$("#messageType").attr("class", "modal-content panel-warning");
+			$(".modal-body").text("아이디와 비밀번호를 확인해주세요.")
+			$(".modal-title").text("Fail....")
 			$("#myMessage").modal("show");
-		} 
+		}
 	});
   </script>
   

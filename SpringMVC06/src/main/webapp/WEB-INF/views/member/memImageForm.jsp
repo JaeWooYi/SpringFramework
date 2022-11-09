@@ -26,7 +26,7 @@
  
 <div class="container">
 <jsp:include page="../common/header.jsp" />
-  <h2>Spring MVC03</h2>
+  <h2>Spring MVC06</h2>
   <div class="panel panel-default">
   
   	<div class="panel-heading">Profile Image Register</div>
@@ -43,7 +43,7 @@
 					<td style="width:110px; vertical-align: middle;">Image Upload</td>
 					<td colspan=2>
 						<span class="btn btn-default">
-							Upload Your Image.<input type="file" name="memPROFILE" />
+							Upload Your Image.<input type="file" name="memPROFILE" id="memPROFILE" />
 						</span>
 					</td>
 				</tr>
