@@ -7,6 +7,26 @@
 <c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}"/>
 <c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}"/>
 
+<script>
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}"
+	function logout(){
+		$.ajax({
+			url : "${contextPath}/logout",
+			type : "post",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			},
+			success : function(){
+				location.href = "${contextPath}/"
+			},
+			error : function(){
+				alert("error!!!");
+			}
+		});
+	}
+</script>
+
 <!-- <nav class="navbar navbar-inverse" style="margin-top : 10px;"> -->	<!-- 검정색 -->
 <nav class="navbar navbar-default" style="margin-top : 10px;">	<!-- 약간회색 -->
   <div class="container-fluid">
@@ -38,7 +58,7 @@
 	      <ul class="nav navbar-nav navbar-right">
             <li><a href="${contextPath}/memUpdateForm.do"><span class="glyphicon glyphicon-cog"></span> My Page</a></li>
             <li><a href="${contextPath}/memImageForm.do"><span class="glyphicon glyphicon-picture"></span> My Image Picture</a></li>
-            <li><a href="${contextPath}/memLogout.do"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            <li><a href="javascript:logout()"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             
 			<!-- Login -->
 				<!-- mvo.member.memPROFILE : Memberuser에 Member member에 member를 찍어준거야 -->

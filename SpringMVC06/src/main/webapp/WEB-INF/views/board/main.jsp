@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
+<c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}"/>
+<c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +61,7 @@
 		  /* listHtml += "<textarea id='ta"+obj.idx+"' readonly='readonly' rows='7' class ='form-control'>"+ obj.content +"</textarea>"; */
 		  listHtml += "<textarea id='ta"+obj.idx+"' readonly='readonly' rows='7' class ='form-control'></textarea>";
 		
-		  if("${mvo.memID}"==obj.memID){
+		  if("${mvo.member.memID}"==obj.memID){
 			  listHtml += "<br/>";
 			  listHtml += "<span id='up"+obj.idx+"'><button class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>Modify</button></span>&nbsp";
 			  listHtml += "<button class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>Delete</button>";
@@ -71,7 +76,7 @@
 	  });
 	  
 	  // 로그인을 해야 글쓰기가 보여야함
-	  if(${!empty mvo}){
+	  if(${!empty mvo.member}){
 	  listHtml += "<tr>";
 	  listHtml += "<td colspan='5'>";
 	  listHtml += "<button class='btn btn-primary btn-sm' onclick='goForm()'>Board Write!</button>";
@@ -232,7 +237,7 @@
     
     <div class="panel-body" id="wform" style="display:none" >
     	<form id="frm">
-    		<input type="hidden" value="${mvo.memID}" name="memID" id="memID" />
+    		<input type="hidden" value="${mvo.member.memID}" name="memID" id="memID" />
 	    	<table class="table">
 	    		<tr>
 	    			<td>Title</td>
@@ -244,7 +249,7 @@
 	    		</tr>
 	    		<tr>
 	    			<td>Writer</td>
-	    			<td><input type="text" id="writer" name="writer" class="form-control" readonly="readonly" value="${mvo.memID}"/></td>
+	    			<td><input type="text" id="writer" name="writer" class="form-control" readonly="readonly" value="${mvo.member.memID}"/></td>
 	    		</tr>
 	    		<tr>
 	    			<td colspan="2" align="center">

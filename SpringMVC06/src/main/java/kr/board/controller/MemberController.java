@@ -89,11 +89,11 @@ public class MemberController {
 			rttr.addFlashAttribute("msgType", "Success!");
 			rttr.addFlashAttribute("msg", "Signed Up!!");
 			
-			// 회원가입이 성공하면 로그인처리하게 할까??
-			Member mvo2 = memberMapper.getMember(mvo.getMemID());	// 추가(MVC04	와 다른점) // getMember() -> 역시 수정되어야함 : 회원정보 + 회원권한 정보 (xml파일)
-			session.setAttribute("mvo", mvo2); // ${empty m}인지 체크해보기 or ${!empty m}	// header.jsp 가봐 있어
-			System.out.println("회원가입 성공!! : " + mvo2);
-			return "redirect:/";
+			// 회원가입이 성공하면 로그인처리하게 할까??	-> 아니 스프링 시큐리티썼으니까 로그인 페이지로 가게 할거야 : 그래서 밑에 주석한거야
+//			Member mvo2 = memberMapper.getMember(mvo.getMemID());	// 추가(MVC04	와 다른점) // getMember() -> 역시 수정되어야함 : 회원정보 + 회원권한 정보 (xml파일)
+//			session.setAttribute("mvo", mvo2); // ${empty m}인지 체크해보기 or ${!empty m}	// header.jsp 가봐 있어
+//			System.out.println("회원가입 성공!! : " + mvo2);
+			return "redirect:/memLoginForm.do";
 		}else {
 			rttr.addFlashAttribute("msgType", "Fail..");
 			rttr.addFlashAttribute("msg", "Already member..");

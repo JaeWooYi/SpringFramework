@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
+<c:set var="mvo" value="${SPRING_SECURITY_CONTEXT.authentication.principal}"/>
+<c:set var="auth" value="${SPRING_SECURITY_CONTEXT.authentication.authorities}"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -54,12 +58,12 @@
 	
 	<div class="panel-body">
 		<form name="frm" method="post" action="${contextPath}/memUpdate.do">
-		<input type="hidden" name="memID" id="memID" value="${mvo.memID}" />
+		<input type="hidden" name="memID" id="memID" value="${mvo.member.memID}" />
 		<input type="hidden" name="memPASSWORD" id="memPASSWORD" value="" />
 			<table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
 				<tr>
 					<td style="width:110px; vertical-align: middle;">ID</td>
-					<td>${mvo.memID}</td>
+					<td>${mvo.member.memID}</td>
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Password</td>
@@ -71,24 +75,24 @@
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Name</td>
-					<td colspan=2><input id='memNAME' name='memNAME' class="form-control" type='text' placeholder='Input your name!' maxlength='20' value="${mvo.memNAME}" /></td>
+					<td colspan=2><input id='memNAME' name='memNAME' class="form-control" type='text' placeholder='Input your name!' maxlength='20' value="${mvo.member.memNAME}" /></td>
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Age</td>
-					<td colspan=2><input id='memAGE' name='memAGE' class="form-control" type='number' placeholder='Input your Age!' maxlength='20' value="${mvo.memAGE}" /></td>
+					<td colspan=2><input id='memAGE' name='memAGE' class="form-control" type='number' placeholder='Input your Age!' maxlength='20' value="${mvo.member.memAGE}" /></td>
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Gender</td>
 					<td colspan=2>
 						<div class='form-group' style='text-align: center; margin: 0 auto;'>
 							<div class='btn-group' data-toggle='buttons'>
-								<label class="btn btn-primary <c:if test="${mvo.memGENDER eq 'male'}">active</c:if>">
+								<label class="btn btn-primary <c:if test="${mvo.member.memGENDER eq 'male'}">active</c:if>">
 									<input type='radio' id='memGENDER' name='memGENDER' autocomplete='off' value='male'
-									<c:if test="${mvo.memGENDER eq 'male'}">checked</c:if> />Male
+									<c:if test="${mvo.member.memGENDER eq 'male'}">checked</c:if> />Male
 								</label>
-								<label class="btn btn-primary <c:if test="${mvo.memGENDER eq 'female'}">active</c:if>">
+								<label class="btn btn-primary <c:if test="${mvo.member.memGENDER eq 'female'}">active</c:if>">
 									<input type='radio' id='memGENDER' name='memGENDER' autocomplete='off' value='female'
-									<c:if test="${mvo.memGENDER eq 'female'}">checked</c:if> />Female
+									<c:if test="${mvo.member.memGENDER eq 'female'}">checked</c:if> />Female
 								</label>
 							</div>
 						</div>
@@ -96,7 +100,7 @@
 				</tr>
 				<tr>
 					<td style="width:110px; vertical-align: middle;">Email</td>
-					<td colspan=2><input  id='memEMAIL' name='memEMAIL' class="form-control" type='text' placeholder='Input your Email!' maxlength='20' value="${mvo.memEMAIL}"/></td>
+					<td colspan=2><input  id='memEMAIL' name='memEMAIL' class="form-control" type='text' placeholder='Input your Email!' maxlength='20' value="${mvo.member.memEMAIL}"/></td>
 				</tr>
 				
 				<!-- MVC05에서 추가 : 선택한 권한 출력하기 -->
@@ -104,7 +108,7 @@
 					<td style="width:110px; vertical-align: middle;">사용자 권한</td>
 					<td colspan=2>
 						<input type="checkbox" name="authList[0].auth" value="ROLE_USER" 
-							<c:forEach items="${mvo.authList}" var="authVO" >
+							<c:forEach items="${mvo.member.authList}" var="authVO" >
 								<c:if test="${authVO.auth eq 'ROLE_USER'}">
 									checked
 								</c:if>
@@ -112,14 +116,14 @@
 						/> ROLE_USER
 						
 						<input type="checkbox" name="authList[1].auth" value="ROLE_MANAGER" 
-							<c:forEach items="${mvo.authList}" var="authVO" >
+							<c:forEach items="${mvo.member.authList}" var="authVO" >
 								<c:if test="${authVO.auth eq 'ROLE_MANAGER'}">
 									checked
 								</c:if>
 							</c:forEach>
 						/> ROLE_MANAGER
 						<input type="checkbox" name="authList[2].auth" value="ROLE_ADMIN" 
-							<c:forEach items="${mvo.authList}" var="authVO" >
+							<c:forEach items="${mvo.member.authList}" var="authVO" >
 								<c:if test="${authVO.auth eq 'ROLE_ADMIN'}">
 									checked
 								</c:if>

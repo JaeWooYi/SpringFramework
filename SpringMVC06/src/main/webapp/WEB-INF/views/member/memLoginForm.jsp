@@ -20,6 +20,11 @@
 			$(".modal-title").text("Fail....")
 			$("#myMessage").modal("show");
 		}
+		
+		if(${!empty msgType}){
+			$("#messageType").attr("class", "modal-content panel-success");
+			$("#myMessage").modal("show");
+		}
 	});
   </script>
   
